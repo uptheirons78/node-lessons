@@ -1,7 +1,7 @@
 # NODE.JS LESSONS
 Lessons from Learn and Understand Node.js by Antony Alicea
 
-##Why Node.js is so powerful
+## Why Node.js is so powerful
 1. Better ways to organize our code into reusable pieces;
 2. Ways to deal with files;
 3. Ways to deal with databases;
