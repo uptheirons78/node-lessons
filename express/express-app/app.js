@@ -5,13 +5,15 @@ const PORT = process.env.PORT || 3000;
 /****MIDDLEWARE TO USE PUBLIC DIR****/
 app.use('/assets', express.static(__dirname + '/public'));
 
+app.set('view engine', 'ejs');
+
 /*ROUTING*/
 app.get('/', (req, res) => {
-    res.send('<html><head><link href=assets/style.css type=text/css rel=stylesheet></head><body><h1>Hello World</h1></body></html>');
+    res.render('index');
 });
 
 app.get('/person/:id', (req, res) => {
-    res.send(`Hello: ${req.params.id}`);
+    res.render('person', { ID: req.params.id });
 });
 
 app.get('/api', (req, res) => {
