@@ -1,38 +1,22 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
+const apiController = require('./controllers/apiController');
+const htmlController = require('./controllers/htmlController');
 
 /****MIDDLEWARE TO USE PUBLIC DIR****/
 app.use('/assets', express.static(__dirname + '/public'));
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const jsonParser = bodyParser.json();
+
 
 app.set('view engine', 'ejs');
-
-/*ROUTING*/
-app.get('/', (req, res) => {
-    res.render('index');
+app.use('/', (req, res, next) => {
+    console.log("Request Url: " + req.url);
+    next();
 });
 
-app.get('/person/:id', (req, res) => {
-    res.render('person', { ID: req.params.id });
-});
-
-app.post('/person', urlencodedParser, (req, res) => {
-    res.send('Thank You!');
-    console.log(req.body.firstname);
-    console.log(req.body.lastname);
-});
-app.post('/personjson', jsonParser, (req, res) => {
-    res.send('Thank You for the JSON data!');
-    console.log(req.body.firstname);
-    console.log(req.body.lastname);
-});
-
-app.get('/api', (req, res) => {
-    res.json({name: 'John', lastname: 'Doe'});
-});
+htmlController(app);
+apiController(app);
 
 app.listen(PORT, () => {
     `Server running on PORT: ${PORT}`;
